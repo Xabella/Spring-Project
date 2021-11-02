@@ -3,7 +3,7 @@ package com.practice.project.controller;
 import com.practice.project.configuration.JwtUtils;
 import com.practice.project.configuration.UserDetailsImpl;
 import com.practice.project.dto.LoginRequestDto;
-import com.practice.project.model.User;
+import com.practice.project.model.UserModel;
 import com.practice.project.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.practice.project.dto.LoginResponse;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("api/user")
@@ -29,7 +27,7 @@ public class UserController {
     AuthenticationManager authenticationManager;
 
     @PostMapping(path = "register")
-    public ResponseEntity<?> saveUser(@RequestBody User userModel) {
+    public ResponseEntity<?> saveUser(@RequestBody UserModel userModel) {
         try {
             userService.saveUser(userModel);
             return ResponseEntity.ok(userService);
@@ -82,7 +80,7 @@ public class UserController {
     }
 
     @PutMapping(path = "edit")
-    public ResponseEntity<?> editUser(@RequestBody User userModel) {
+    public ResponseEntity<?> editUser(@RequestBody UserModel userModel) {
         try {
 
             userService.editUser(userModel);

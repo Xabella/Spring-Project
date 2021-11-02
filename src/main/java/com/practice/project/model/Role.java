@@ -28,7 +28,7 @@ public class Role {
     private ERole name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> user = new HashSet<>();
+    private Set<UserModel> userModel = new HashSet<>();
 
     public Role() {
 
@@ -69,16 +69,16 @@ public class Role {
      * @return Set<User> return the user
      */
     @JsonIgnore
-    public Set<User> getUser() {
-        return user;
+    public Set<UserModel> getUser() {
+        return userModel;
     }
 
     /**
-     * @param user the user to set
+     * @param userModel the user to set
      */
     @JsonProperty
-    public void setUser(Set<User> user) {
-        this.user = user;
+    public void setUser(Set<UserModel> userModel) {
+        this.userModel = userModel;
     }
 
     @Override

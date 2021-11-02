@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
-public class User {
+public class UserModel {
 	@Id
 	@GeneratedValue
 	@Column(updatable = false)
@@ -44,14 +44,14 @@ public class User {
 
 	private String imageUrl;
 
-	public User() {
+	public UserModel() {
 	}
 
-	public User(String email) {
+	public UserModel(String email) {
 		this.email = email;
 	}
 
-	public User(String username, String email, String phone, String imageUrl, String password) {
+	public UserModel(String username, String email, String phone, String imageUrl, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -161,8 +161,8 @@ public class User {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		User user = (User) o;
-		return Objects.equals(id, user.id);
+		UserModel userModel = (UserModel) o;
+		return Objects.equals(id, userModel.id);
 	}
 
 	@Override

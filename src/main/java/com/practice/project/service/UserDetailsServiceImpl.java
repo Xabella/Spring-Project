@@ -1,7 +1,7 @@
 package com.practice.project.service;
 
 import com.practice.project.configuration.UserDetailsImpl;
-import com.practice.project.model.User;
+import com.practice.project.model.UserModel;
 import com.practice.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     PasswordEncoder encoder;
 
-    public void saveUser(User userModel) {
+    public void saveUser(UserModel userModel) {
 
         userModel.setPassword(encoder.encode(userModel.getPassword()));
 
@@ -31,23 +31,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(s);
+        UserModel userModel = userRepository.findByEmail(s);
 
-        if (user == null) {
+        if (userModel == null) {
             throw new IllegalStateException("User does not exist");
         }
 
-        return UserDetailsImpl.build(user);
+        return UserDetailsImpl.build(userModel);
     }
 
-    public List<User> getUser() {
-        List<User> all = userRepository.findAll();
+    public List<UserModel> getUser() {
+        List<UserModel> all = userRepository.findAll();
 
         return all;
     }
 
     public void delete(long id) {
-        Optional<User> optionalUserModel = userRepository.findById(id);
+        Optional<UserModel> optionalUserModel = userRepository.findById(id);
 
         if (optionalUserModel.isEmpty()) {
             throw new IllegalArgumentException("User does not exist");
@@ -56,8 +56,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    public void editUser(User userModel) {
-        Optional<User> optionalUserModel = userRepository.findById(userModel.getId());
+    public void editUser(UserModel userModel) {
+        Optional<UserModel> optionalUserModel = userRepository.findById(userModel.getId());
 
         if (optionalUserModel.isEmpty()) {
             throw new IllegalArgumentException("User does not exist");

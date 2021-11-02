@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.practice.project.model.User;
+import com.practice.project.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,12 +53,12 @@ public class UserDetailsImpl implements UserDetails {
 		this.imageUrl = imageUrl;
 	}
 
-	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
+	public static UserDetailsImpl build(UserModel userModel) {
+		List<GrantedAuthority> authorities = userModel.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities,
-				user.isLocked(), user.isEnabled());
+		return new UserDetailsImpl(userModel.getId(), userModel.getUsername(), userModel.getEmail(), userModel.getPassword(), authorities,
+				userModel.isLocked(), userModel.isEnabled());
 	}
 
 	@Override
